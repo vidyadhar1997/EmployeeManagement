@@ -19,14 +19,14 @@ function gethour()
   if [ $val -eq 0 ]
   then
    	val1=$((RANDOM%2))
-	   case $val1 in 
-	    0)
-	   	hours=8
-	      echo $hours ;;
-       1)	
-		   hours=4
-		   echo $hours ;;
-      esac
+ 	  case $val1 in 
+	   0)
+		  hours=8
+	     echo $hours ;;
+      1)	
+		  hours=4
+		  echo $hours ;;
+     esac
   fi
 }
 
@@ -49,11 +49,16 @@ function cal_wage_for_month()
        calculatinghour=$(( $calculatinghour + hour ))
        res=$( check_Employee_wage $(()) )
        total_wage=$(( $total_wage + res ))
+       storeing_Wages[$count]=$res
        ((count++))
+  if [ $count -eq 20 ]
+  then
+       break;
+  fi
   done
        echo "$total_wage"
-
+       echo ${storeing_Wages[@]}
  }
 
-result="$( cal_wage_for_month $(()) )"
-echo $result
+cal_wage_for_month
+
